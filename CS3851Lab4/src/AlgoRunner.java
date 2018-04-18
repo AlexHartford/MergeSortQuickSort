@@ -22,13 +22,23 @@ public class AlgoRunner {
         Algorithm quickSort = new QuickSort();
         Algorithm mergeSort = new MergeSort();
 
-        System.out.println("QuickSort sorted\n" +
-                Arrays.toString(likelyCase) +
-                "\nin " + quickSort.sort(unique(likelyCase)) + "ns");
+        Algorithm mQuickSort = new mQuickSort();
+        Algorithm mMergeSort = new mMergeSort();
 
-        System.out.println("MergeSort sorted\n" +
-                Arrays.toString(likelyCase) +
-                "\nin " + mergeSort.sort(unique(likelyCase)) + "ns");
+        runTest("QuickSort", quickSort, "best case", bestCase);
+        runTest("MergeSort", mergeSort, "best case", bestCase);
+        runTest("Multi-Threaded QuickSort", mQuickSort, "best case", bestCase);
+        runTest("Multi-Threaded MergeSort", mMergeSort, "best case", bestCase);
+
+        runTest("QuickSort", quickSort, "worst case", worstCase);
+        runTest("MergeSort", mergeSort, "worst case", worstCase);
+        runTest("Multi-Threaded QuickSort", mQuickSort, "worst case", worstCase);
+        runTest("Multi-Threaded MergeSort", mMergeSort, "worst case", worstCase);
+
+        runTest("QuickSort", quickSort, "likely", likelyCase);
+        runTest("MergeSort", mergeSort, "likely", likelyCase);
+        runTest("Multi-Threaded QuickSort", mQuickSort, "likely", likelyCase);
+        runTest("Multi-Threaded MergeSort", mMergeSort, "likely", likelyCase);
     }
 
     /**
@@ -66,5 +76,18 @@ public class AlgoRunner {
         int[] Au = new int[A.length];
         System.arraycopy(A, 0, Au, 0, A.length);
         return Au;
+    }
+
+    /**
+     * Runs a specified algorithm on a specified list and prints relevant data
+     * @param name - name of the algorithm, e.g. QuickSort
+     * @param algo - the algorithm to run, e.g. Multi-Threaded QuickSort
+     * @param inputName - the type of input, e.g. "likely"
+     * @param input - the input to sort, e.g. [0, 1, 2, 5, 6, 4, 3]
+     */
+    private static void runTest(String name, Algorithm algo, String inputName, int[] input) {
+        System.out.println("[" + inputName + "] " + name + " sorted\n" +
+                Arrays.toString(input) +
+                "\nin " + algo.sort(unique(input)) + "ns");
     }
 }

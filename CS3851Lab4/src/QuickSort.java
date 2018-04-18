@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 /**
- * Multi-Threaded QuickSort
+ * Single-Threaded QuickSort
  * @author Alex Hartford
  * Course: CS3851-021
  * Assignment: Lab 4 - Parallel Sorting
