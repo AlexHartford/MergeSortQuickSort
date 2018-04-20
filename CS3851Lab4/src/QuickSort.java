@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Single-Threaded QuickSort
  * @author Alex Hartford
@@ -11,11 +9,11 @@ import java.util.Arrays;
 public class QuickSort implements Algorithm {
 
     @Override
-    public String sort(int A[]) {
+    public long sort(int[] A) {
         long startTime = System.nanoTime();
         quicksort(A, 0, A.length - 1);
-        System.out.println("[QuickSort] Sorted Array: " + Arrays.toString(A));
-        return String.valueOf(System.nanoTime() - startTime);
+//        System.out.println("[QuickSort] Sorted Array: " + Arrays.toString(A));
+        return System.nanoTime() - startTime;
     }
 
     private int partition(int A[], int low, int high) {

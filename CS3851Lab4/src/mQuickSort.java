@@ -10,12 +10,15 @@ import java.util.Arrays;
  */
 public class mQuickSort implements Algorithm {
 
+    private static int threadCount = 0;
+    private final static int CPUCores = Runtime.getRuntime().availableProcessors();
+
     @Override
-    public String sort(int A[]) {
+    public long sort(int[] A) {
         long startTime = System.nanoTime();
         quicksort(A, 0, A.length - 1);
-        System.out.println("[QuickSort] Sorted Array: " + Arrays.toString(A));
-        return String.valueOf(System.nanoTime() - startTime);
+//        System.out.println("[MT QuickSort] Sorted Array: " + Arrays.toString(A));
+        return System.nanoTime() - startTime;
     }
 
     private int partition(int A[], int low, int high) {
@@ -41,18 +44,34 @@ public class mQuickSort implements Algorithm {
         if (low < high) {
             int i = partition(A, low, high);
 
-            Thread t1 = new Thread(() -> quicksort(A, low, i - 1));
-            Thread t2 = new Thread(() -> quicksort(A, i + 1, high));
+            if (threadCount < CPUCores / 2) { // executes best on my machine at 4 threads
+                synchronized (this) {
+                    threadCount += 2;
+                }
 
-            t1.start();
-            t2.start();
+//                System.out.println("Spawning new threads. Threadcount: " + threadCount);
 
-            try {
-                t1.join();
-                t2.join();
-            } catch (InterruptedException e) {
-                System.out.println("[QuickSort] Threads failed to join");
-                e.printStackTrace();
+                Thread t1 = new Thread(() -> quicksort(A, low, i - 1));
+                Thread t2 = new Thread(() -> quicksort(A, i + 1, high));
+
+                t1.start();
+                t2.start();
+
+                try {
+                    t1.join();
+                    t2.join();
+                    synchronized (this) {
+                        threadCount -= 2;
+//                        System.out.println("Deallocated new threads. Threadcount: " + threadCount);
+                    }
+                } catch (InterruptedException e) {
+//                    System.out.println("[QuickSort] Threads failed to join");
+                    e.printStackTrace();
+                }
+            } else {
+//                System.out.println("Running on main thread. Threadcount: " + threadCount);
+                quicksort(A, low, i - 1);
+                quicksort(A, i + 1, high);
             }
         }
     }

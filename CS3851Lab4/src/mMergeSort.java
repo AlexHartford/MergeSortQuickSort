@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Multi-Threaded MergeSort
  * @author Alex Hartford
@@ -10,12 +8,14 @@ import java.util.Arrays;
  */
 public class mMergeSort implements Algorithm {
 
+    private static int threadCount = 0;
+
     @Override
-    public String sort(int[] A) {
+    public long sort(int[] A) {
         long startTime = System.nanoTime();
         sort(A, 0, A.length - 1);
-        System.out.println("[MergeSort] Sorted Array: " + Arrays.toString(A));
-        return String.valueOf(System.nanoTime() - startTime);
+//        System.out.println("[MT MergeSort] Sorted Array: " + Arrays.toString(A));
+        return System.nanoTime() - startTime;
     }
 
     private void merge(int A[], int l, int m, int r) {
@@ -60,18 +60,30 @@ public class mMergeSort implements Algorithm {
         if (l < r) {
             int m = (l + r) / 2;
 
-            Thread t1 = new Thread(() -> sort(A, l, m));
-            Thread t2 = new Thread(() -> sort(A , m + 1, r));
+            if (threadCount < 6) {
+                synchronized (this) {
+                    threadCount += 2;
+                }
 
-            t1.start();
-            t2.start();
+                Thread t1 = new Thread(() -> sort(A, l, m));
+                Thread t2 = new Thread(() -> sort(A, m + 1, r));
 
-            try {
-                t1.join();
-                t2.join();
-            } catch (InterruptedException e) {
-                System.out.println("[MergeSort] Threads failed to join");
-                e.printStackTrace();
+                t1.start();
+                t2.start();
+
+                try {
+                    t1.join();
+                    t2.join();
+                    synchronized (this) {
+                        threadCount -= 2;
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("[MergeSort] Threads failed to join");
+                    e.printStackTrace();
+                }
+            } else {
+                sort(A, l, m);
+                sort(A, m + 1, r);
             }
 
             merge(A, l, m, r);

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Single-Threaded MergeSort
  * @author Alex Hartford
@@ -11,11 +9,11 @@ import java.util.Arrays;
 public class MergeSort implements Algorithm {
 
     @Override
-    public String sort(int[] A) {
+    public long sort(int[] A) {
         long startTime = System.nanoTime();
         sort(A, 0, A.length - 1);
-        System.out.println("[MergeSort] Sorted Array: " + Arrays.toString(A));
-        return String.valueOf(System.nanoTime() - startTime);
+//        System.out.println("[MergeSort] Sorted Array: " + Arrays.toString(A));
+        return System.nanoTime() - startTime;
     }
 
     private void merge(int A[], int l, int m, int r) {

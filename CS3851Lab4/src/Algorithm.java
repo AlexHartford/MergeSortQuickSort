@@ -8,5 +8,5 @@
  */
 public interface Algorithm {
 
-    String sort(int A[]);
+    long sort(int[] A);
 }
