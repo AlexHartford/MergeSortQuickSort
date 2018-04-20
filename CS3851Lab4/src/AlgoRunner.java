@@ -18,7 +18,7 @@ public class AlgoRunner {
 
     public static void main(String[] args) {
 
-        ArrayList<int[]> lists = generateLists(1000000);
+        ArrayList<int[]> lists = generateLists(10000);
         int[] bestCase = lists.get(0);
         int[] worstCase = lists.get(1);
         int[] likelyCase = lists.get(2);
@@ -29,20 +29,26 @@ public class AlgoRunner {
         Algorithm mQuickSort = new mQuickSort();
         Algorithm mMergeSort = new mMergeSort();
 
-        runTest("QuickSort", quickSort, "best case", bestCase);
+        Algorithm IQuickSort = new IQuickSort();
+
+//        runTest("QuickSort", quickSort, "best case", bestCase);
 //        runTest("MergeSort", mergeSort, "best case", bestCase);
-        runTest("Multi-Threaded QuickSort", mQuickSort, "best case", bestCase);
+//        runTest("Multi-Threaded QuickSort", mQuickSort, "best case", bestCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "best case", bestCase);
 //
-        runTest("QuickSort", quickSort, "worst case", worstCase);
+//        runTest("QuickSort", quickSort, "worst case", worstCase);
 //        runTest("MergeSort", mergeSort, "worst case", worstCase);
-        runTest("Multi-Threaded QuickSort", mQuickSort, "worst case", worstCase);
+//        runTest("Multi-Threaded QuickSort", mQuickSort, "worst case", worstCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "worst case", worstCase);
 
 //        runTest("QuickSort", quickSort, "likely", likelyCase);
 //        runTest("MergeSort", mergeSort, "likely", likelyCase);
 //        runTest("Multi-Threaded QuickSort", mQuickSort, "likely", likelyCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "likely", likelyCase);
+
+        runTest("IQuickSort", IQuickSort, "best case", bestCase);
+        runTest("IQuickSort", IQuickSort, "worst case", worstCase);
+        runTest("IQuickSort", IQuickSort, "likely case", likelyCase);
 
 //        comprehensiveAnalysisToCSV(mergeSort, mMergeSort);
 //        comprehensiveAnalysisToCSV(quickSort, mergeSort, mQuickSort, mMergeSort);
