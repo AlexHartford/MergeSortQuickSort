@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 /**
- * Multi-Threaded QuickSort
+ * Multi-Threaded QuickSort (causes stackoverflow)
  * @author Alex Hartford
  * Course: CS3851-021
  * Assignment: Lab 4 - Parallel Sorting

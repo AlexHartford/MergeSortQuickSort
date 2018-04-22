@@ -1,10 +1,10 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
 
 /**
  * Iterative Multi-Threaded QuickSort
- * Recursive QuickSort was giving me stackoverflow errors so here we are.
+ * Recursive QuickSort was giving me stackoverflow errors so here we are...
  * @author Alex Hartford
  * Course: CS3851-021
  * Assignment: Lab 4 - Parallel Sorting
@@ -13,8 +13,10 @@ import java.util.Stack;
  */
 public class IMQuickSort implements Algorithm {
 
-//    private static int threadCount = 0;
+
     private final static int CPUCores = Runtime.getRuntime().availableProcessors();
+
+    private int[] A;
 
     public String getName() {
         return "IMQuickSort";
@@ -29,33 +31,85 @@ public class IMQuickSort implements Algorithm {
     }
 
     @Override
-    public int[] sort(int[] array, int lower, int upper) {
-        try{
-            ArrayList<Thread> threads = new ArrayList<>();
-            int k = upper / CPUCores;
-            int count = -1;
-            while(count < upper) {
-                Runnable task = () -> {
-                    Algorithm quicksort = new IQuickSort();
-                    if(count + k < array.length) {
-                        quicksort.sort(array, count + 1, count + k);
-                    } else {
-                        quicksort.sort(array, count + 1, upper);
-                    }
-                };
-                Thread thread = new Thread(task);
-                threads.add(thread);
+    public int[] sort(int[] A, int lower, int upper) {
+        this.A = A;
+        ForkJoinPool pool = new ForkJoinPool();
+        this.sort(pool);
+        return A;
+    }
+
+    private void sort(ForkJoinPool pool) {
+        RecursiveAction start = new Partition(0, A.length - 1);
+        pool.invoke(start);
+    }
+
+    // inner class allows use of recursiveaction
+    private class Partition extends RecursiveAction {
+        int lowerBound;
+        int upperBound;
+
+        private Partition(int lowerBound, int upperBound) {
+
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
+        }
+
+        private int size() {
+            return upperBound - lowerBound;
+        }
+
+        protected void compute() {
+//            ForkJoinPool pool = getPool();
+//            System.out.println("active threads: " + pool.getRunningThreadCount());
+            int lower = lowerBound;
+            int upper = upperBound;
+
+            swap(A, lower + ((upper - lower) / 2), upper);
+            int temp = A[upper];
+
+            int i = lower - 1;
+            for(int j = lower; j < upper; j++) {
+                if(A[j] <= temp) {
+                    i++;
+                    swap(A, i, j);
+                }
             }
-            for (Thread thread : threads) {
-                thread.start();
+            swap(A, i + 1, upper);
+
+            int pivot = i + 1;
+
+            Partition leftTask = null;
+            Partition rightTask = null;
+
+            if (lowerBound < pivot - 1) {
+                leftTask = new Partition(lowerBound, pivot - 1);
             }
-            for (Thread thread : threads) {
-                thread.join();
+            if (pivot < upperBound) {
+                rightTask = new Partition(pivot + 1, upperBound);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (size() > CPUCores * 2) {
+                if (leftTask != null && rightTask != null) {
+                    invokeAll(leftTask, rightTask);
+                } else if (leftTask != null) {
+                    invokeAll(leftTask);
+                } else if (rightTask != null) {
+                    invokeAll(rightTask);
+                }
+            } else {
+                if (leftTask != null) {
+                    leftTask.compute();
+                }
+                if (rightTask != null) {
+                    rightTask.compute();
+                }
+            }
         }
-        return array;
+
+        private void swap(int[] A, int firstIndex, int secondIndex) {
+            int temp = A[firstIndex];
+            A[firstIndex] = A[secondIndex];
+            A[secondIndex] = temp;
+        }
     }
 }
