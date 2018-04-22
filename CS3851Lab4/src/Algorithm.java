@@ -8,5 +8,10 @@
  */
 public interface Algorithm {
 
+    String getName();
+
     long sort(int[] A);
+
+    int[] sort(int[] array, int lower, int upper);
 }
+

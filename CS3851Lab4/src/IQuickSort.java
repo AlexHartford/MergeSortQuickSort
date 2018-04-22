@@ -16,19 +16,27 @@ public class IQuickSort implements Algorithm {
     public long sort(int[] A) {
         long startTime = System.nanoTime();
         iterativeQuicksort(A);
-        System.out.println("[Iterative QuickSort] Sorted Array: " + Arrays.toString(A));
+//        System.out.println("[Iterative QuickSort] Sorted Array: " + Arrays.toString(A));
         return System.nanoTime() - startTime;
     }
 
-    private void iterativeQuicksort(int[] array) {
+    public String getName() {
+        return "IQuickSort";
+    }
+
+    public int[] sort(int[] A, int lower, int upper) {
+        return iterativeQuicksort(A);
+    }
+
+    private int[] iterativeQuicksort(int[] A) {
         Stack<Integer> stack = new Stack<Integer>();
         stack.push(0);
-        stack.push(array.length - 1);
+        stack.push(A.length - 1);
         while(!stack.isEmpty()) {
             int upper = stack.pop();
             int lower = stack.pop();
             if (upper - lower > 0) {
-                int pivot = partition(array, lower, upper);
+                int pivot = partition(A, lower, upper);
 
                 stack.push(pivot + 1);
                 stack.push(upper);
@@ -37,6 +45,7 @@ public class IQuickSort implements Algorithm {
                 stack.push(pivot - 1);
             }
         }
+        return A;
     }
 
     private int partition(int[] array, int lower, int upper) {

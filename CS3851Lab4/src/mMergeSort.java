@@ -18,6 +18,10 @@ public class mMergeSort implements Algorithm {
         return System.nanoTime() - startTime;
     }
 
+    public String getName() {
+        return "mMergeSort";
+    }
+
     private void merge(int A[], int l, int m, int r) {
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -56,7 +60,7 @@ public class mMergeSort implements Algorithm {
         }
     }
 
-    private void sort(int A[], int l, int r) {
+    public int[] sort(int[] A, int l, int r) {
         if (l < r) {
             int m = (l + r) / 2;
 
@@ -88,5 +92,6 @@ public class mMergeSort implements Algorithm {
 
             merge(A, l, m, r);
         }
+        return A;
     }
 }

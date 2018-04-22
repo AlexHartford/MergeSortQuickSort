@@ -21,6 +21,15 @@ public class mQuickSort implements Algorithm {
         return System.nanoTime() - startTime;
     }
 
+    public String getName() {
+        return "mQuickSort";
+    }
+
+    @Override
+    public int[] sort(int[] array, int lower, int upper) {
+        return new int[0];
+    }
+
     private int partition(int A[], int low, int high) {
         int pivot = A[high];
         int i = (low - 1);

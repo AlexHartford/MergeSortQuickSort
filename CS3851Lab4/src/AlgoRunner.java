@@ -18,7 +18,7 @@ public class AlgoRunner {
 
     public static void main(String[] args) {
 
-        ArrayList<int[]> lists = generateLists(10000);
+        ArrayList<int[]> lists = generateLists(1000);
         int[] bestCase = lists.get(0);
         int[] worstCase = lists.get(1);
         int[] likelyCase = lists.get(2);
@@ -30,28 +30,33 @@ public class AlgoRunner {
         Algorithm mMergeSort = new mMergeSort();
 
         Algorithm IQuickSort = new IQuickSort();
+        Algorithm IMQuickSort = new IMQuickSort();
 
 //        runTest("QuickSort", quickSort, "best case", bestCase);
-//        runTest("MergeSort", mergeSort, "best case", bestCase);
+        runTest("MergeSort", mergeSort, "best case", bestCase);
 //        runTest("Multi-Threaded QuickSort", mQuickSort, "best case", bestCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "best case", bestCase);
 //
 //        runTest("QuickSort", quickSort, "worst case", worstCase);
-//        runTest("MergeSort", mergeSort, "worst case", worstCase);
+        runTest("MergeSort", mergeSort, "worst case", worstCase);
 //        runTest("Multi-Threaded QuickSort", mQuickSort, "worst case", worstCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "worst case", worstCase);
 
 //        runTest("QuickSort", quickSort, "likely", likelyCase);
-//        runTest("MergeSort", mergeSort, "likely", likelyCase);
+        runTest("MergeSort", mergeSort, "likely", likelyCase);
 //        runTest("Multi-Threaded QuickSort", mQuickSort, "likely", likelyCase);
 //        runTest("Multi-Threaded MergeSort", mMergeSort, "likely", likelyCase);
 
         runTest("IQuickSort", IQuickSort, "best case", bestCase);
         runTest("IQuickSort", IQuickSort, "worst case", worstCase);
         runTest("IQuickSort", IQuickSort, "likely case", likelyCase);
+//
+//        runTest("IMQuickSort", IMQuickSort, "best case", bestCase);
+//        runTest("IMQuickSort", IMQuickSort, "worst case", worstCase);
+//        runTest("IMQuickSort", IMQuickSort, "likely case", likelyCase);
 
 //        comprehensiveAnalysisToCSV(mergeSort, mMergeSort);
-//        comprehensiveAnalysisToCSV(quickSort, mergeSort, mQuickSort, mMergeSort);
+        comprehensiveAnalysisToCSV(IQuickSort, mergeSort, mMergeSort);
     }
 
     /**
@@ -113,14 +118,14 @@ public class AlgoRunner {
      */
     private static void comprehensiveAnalysisToCSV(Algorithm... algos) {
 
-        int numIterations = 20;
+        int numIterations = 2;
 
         ArrayList<int[]> bestLists = new ArrayList<>();
         ArrayList<int[]> worstLists = new ArrayList<>();
         ArrayList<int[]> likelyLists = new ArrayList<>();
 
         // populates lists with length 1000, 10000, 100000, 1000000, 10000000
-        for (int i = 1000; i <= 10000; i *= 10) {
+        for (int i = 1000; i <= 10000; i += 1000) {
             ArrayList<int[]> lists = generateLists(i);
             bestLists.add(lists.get(0));
             worstLists.add(lists.get(1));
@@ -135,7 +140,7 @@ public class AlgoRunner {
         ArrayList<String> algoNames = new ArrayList<>();
         algoNames.add("QuickSort");
         algoNames.add("MergeSort");
-        algoNames.add("mQuickSort");
+//        algoNames.add("mQuickSort");
         algoNames.add("mMergeSort");
 
         ArrayList<String> inputNames = new ArrayList<>();
@@ -146,30 +151,108 @@ public class AlgoRunner {
         try {
             Writer writer = new BufferedWriter(
                             new OutputStreamWriter(
-                            new FileOutputStream("CS3851Lab4.csv")));
+                            new FileOutputStream("CCS3851Lab4.csv")));
+//            writer.write("n,");
+//            for (String name : algoNames) {
+//                for (String inputName : inputNames) {
+////                    for (int[] input : bestLists) {
+////                        writer.write(name + " " + inputName + " " + input.length + ",");
+////                    }
+//                    writer.write(name + " " + inputName + ",");
+//                }
+//            }
+//            writer.write("\n");
 
-            for (String name : algoNames) {
-                for (String inputName : inputNames) {
-                    for (int[] input : bestLists) {
-                        writer.write(name + " " + inputName + " " + input.length + ",");
+
+//            for (int i = 0; i < inputNames.size(); i++) {
+//                ArrayList<int[]> lists = inputLists.get(i);
+//                for (Algorithm algo : algos) {
+//                    for (int[] input : lists) {
+//                        long time = 0;
+//                        for (int j = 0; j < numIterations; j++) {
+//                            time += algo.sort(unique(input));
+//                        }
+////                        time = algo.sort(unique(input));
+//                        writer.write(time / numIterations + ",");
+////                        writer.write(time + ",");
+//                    }
+//                }
+//            }
+
+            ArrayList<Integer> printed = new ArrayList<>();
+
+//            for (Algorithm algo : algos) {
+//            for (int i = 0; i < inputNames.size(); i++) {
+//                ArrayList<int[]> lists = inputLists.get(i);
+//                    for (int[] input : lists) {
+//                        if (!printed.contains(input.length)) {
+//                            writer.write(input.length + ", ");
+//                            printed.add(input.length);
+//                        }
+//                        for (Algorithm algo : algos) {
+//
+//                            long time = 0;
+//                            for (int j = 0; j < numIterations; j++) {
+//                                time += algo.sort(unique(input));
+//                            }
+//    //                        time = algo.sort(unique(input));
+//                            writer.write(time / numIterations + ",");
+//    //                        writer.write(time + ",");
+//                    }
+//                    writer.write("\n");
+//                }
+//            }
+//            writer.write();
+
+//            for (int i = 0; i < inputLists.size(); i++) {
+//                writer.write("n [" + inputNames.get(i) + "],");
+//                for (Algorithm algo : algos) {
+//                    writer.write(algo.getName() + ",");
+//                    ArrayList<int[]> list = inputLists.get(i);
+//                    for (int[] input : list) {
+//                        for (Algorithm algor : algos) {
+//                            long time = 0;
+//                            for (int j = 0; j < numIterations; j++) {
+//                                time += algor.sort(unique(input));
+//                            }
+//                            writer.write(time / numIterations + ",");
+//                        }
+//                        writer.write("\n");
+//                    }
+//                }
+//                writer.write("\n");
+//            }
+//            for (Algorithm algo : algos) {
+//                writer.write("n,best,worst,likely\n");
+//                for (int[] list : bestLists) {
+//                    writer.write(list.length + ",");
+//                    long time = 0;
+//                    for (int j = 0; j < numIterations; j++) {
+//                        time += algo.sort(unique(list));
+//                    }
+//                    writer.write(time / numIterations + ",");
+//                }
+//            }
+            for (Algorithm algo : algos) {
+                writer.write(algo.getName() + "\n");
+                writer.write("n,best,worst,likely\n");
+                for (int i = 0; i < bestLists.size(); i++) {
+                    writer.write(bestLists.get(i).length + ",");
+                    long time = 0;
+                    for (int j = 0; j < numIterations; j++) {
+                        time += algo.sort(unique(bestLists.get(i)));
                     }
-                }
-            }
-            writer.write("\n");
-
-
-            for (int i = 0; i < inputNames.size(); i++) {
-                ArrayList<int[]> lists = inputLists.get(i);
-                for (Algorithm algo : algos) {
-                    for (int[] input : lists) {
-                        long time = 0;
-                        for (int j = 0; j < numIterations; j++) {
-                            time += algo.sort(unique(input));
-                        }
-//                        time = algo.sort(unique(input));
-                        writer.write(time / numIterations + ",");
-                        writer.write(time + ",");
+                    writer.write(time / numIterations + ",");
+                    time = 0;
+                    for (int j = 0; j < numIterations; j++) {
+                        time += algo.sort(unique(worstLists.get(i)));
                     }
+                    writer.write(time / numIterations + ",");
+                    time = 0;
+                    for (int j = 0; j < numIterations; j++) {
+                        time += algo.sort(unique(likelyLists.get(i)));
+                    }
+                    writer.write(time / numIterations + "\n");
                 }
             }
 
