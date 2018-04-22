@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ddae2eff-cb1f-4fc7-95ff-38326f7a69ec" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/CS3851Lab4/MergeSort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AlgoRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlgoRunner.java" afterDir="false" />
-    </list>
+    <list default="true" id="ddae2eff-cb1f-4fc7-95ff-38326f7a69ec" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +15,8 @@
       <file leaf-file-name="AlgoRunner.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AlgoRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+            <state relative-caret-position="515">
+              <caret line="145" column="39" lean-forward="true" selection-start-line="145" selection-start-column="39" selection-end-line="145" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -244,7 +241,7 @@
       <option name="presentableId" value="Default" />
       <updated>1524068645745</updated>
       <workItem from="1524068651263" duration="9248000" />
-      <workItem from="1524093192784" duration="41329000" />
+      <workItem from="1524093192784" duration="41575000" />
     </task>
     <task id="LOCAL-00001" summary="Expanded test framework and added multithreaded mergesort and quicksort files.">
       <created>1524094701960</created>
@@ -281,11 +278,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524434785797</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="test suite working">
+      <created>1524435115452</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1524435115452</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50577000" />
+    <option name="totallyTimeSpent" value="50823000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1633" height="1053" extended-state="6" />
@@ -363,7 +367,8 @@
     <MESSAGE value="everything works, generates csv, but quicksort is giving stackoverflow on high n" />
     <MESSAGE value="implemented iterative quicksort" />
     <MESSAGE value="test suite working (this commit has lots of commented code for reference)" />
-    <option name="LAST_COMMIT_MESSAGE" value="test suite working (this commit has lots of commented code for reference)" />
+    <MESSAGE value="test suite working" />
+    <option name="LAST_COMMIT_MESSAGE" value="test suite working" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/AlgoRunner.java">
@@ -482,8 +487,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AlgoRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+        <state relative-caret-position="515">
+          <caret line="145" column="39" lean-forward="true" selection-start-line="145" selection-start-column="39" selection-end-line="145" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

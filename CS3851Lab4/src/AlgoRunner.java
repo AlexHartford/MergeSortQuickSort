@@ -32,6 +32,8 @@ public class AlgoRunner {
         Algorithm IQuickSort = new IQuickSort();
         Algorithm IMQuickSort = new IMQuickSort();
 
+        Algorithm javaCollectionSort = new JavaCollectionSort();
+
 //        runTest("QuickSort", quickSort, "best case", bestCase);
         runTest("MergeSort", mergeSort, "best case", bestCase);
 //        runTest("Multi-Threaded QuickSort", mQuickSort, "best case", bestCase);
@@ -56,7 +58,7 @@ public class AlgoRunner {
 //        runTest("IMQuickSort", IMQuickSort, "likely case", likelyCase);
 
 //        comprehensiveAnalysisToCSV(mergeSort, mMergeSort);
-        comprehensiveAnalysisToCSV(IQuickSort, mergeSort, mMergeSort);
+        comprehensiveAnalysisToCSV(IQuickSort, mergeSort, mMergeSort, javaCollectionSort);
     }
 
     /**
