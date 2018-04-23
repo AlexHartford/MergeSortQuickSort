@@ -134,8 +134,8 @@ public class AlgoRunner {
         ArrayList<int[]> likelyLists = new ArrayList<>();
 
         // populates lists with length 1000, 10000, 100000, 1000000, 10000000
-//        for (int i = 1000000; i <= 10000000; i += 200000) { // BIG N
-        for (int i = 1000; i < 1000000; i += 5000) { // SMALL N
+        for (int i = 1000000; i <= 10000000; i += 200000) { // BIG N
+//        for (int i = 1000; i < 1000000; i += 5000) { // SMALL N
             ArrayList<int[]> lists = generateLists(i);
             bestLists.add(lists.get(0));
             worstLists.add(lists.get(1));
