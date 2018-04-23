@@ -18,7 +18,7 @@ public class AlgoRunner {
 
     public static void main(String[] args) {
 
-        ArrayList<int[]> lists = generateLists(100000);
+        ArrayList<int[]> lists = generateLists(100);
         int[] bestCase = lists.get(0);
         int[] worstCase = lists.get(1);
         int[] likelyCase = lists.get(2);
@@ -34,6 +34,8 @@ public class AlgoRunner {
 
         Algorithm javaCollectionSort = new JavaCollectionSort();
         Algorithm IRQuickSort = new IRQuickSort();
+
+        Algorithm optimalSort = new OptimalSort();
 
 //        runTest("QuickSort", quickSort, "best case", bestCase);
 //        runTest("MergeSort", mergeSort, "best case", bestCase);
@@ -58,7 +60,12 @@ public class AlgoRunner {
 //        runTest("IMQuickSort", IMQuickSort, "worst case", worstCase);
 //        runTest("IMQuickSort", IMQuickSort, "likely case", likelyCase);
 
-        comprehensiveAnalysisToCSV(IQuickSort, IMQuickSort, mergeSort, mMergeSort, javaCollectionSort, IRQuickSort);
+//        runTest(optimalSort.getName(), optimalSort, "best case", bestCase);
+//        runTest(optimalSort.getName(), optimalSort, "worst case", worstCase);
+//        runTest(optimalSort.getName(), optimalSort, "likely case", likelyCase);
+
+//        comprehensiveAnalysisToCSV(IQuickSort, IMQuickSort, mergeSort, mMergeSort, javaCollectionSort, IRQuickSort);
+        comprehensiveAnalysisToCSV(optimalSort);
     }
 
     /**
@@ -127,7 +134,8 @@ public class AlgoRunner {
         ArrayList<int[]> likelyLists = new ArrayList<>();
 
         // populates lists with length 1000, 10000, 100000, 1000000, 10000000
-        for (int i = 1000000; i <= 10000000; i += 200000) {
+//        for (int i = 1000000; i <= 10000000; i += 200000) { // BIG N
+        for (int i = 1000; i < 1000000; i += 5000) { // SMALL N
             ArrayList<int[]> lists = generateLists(i);
             bestLists.add(lists.get(0));
             worstLists.add(lists.get(1));
