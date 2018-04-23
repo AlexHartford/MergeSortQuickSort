@@ -15,7 +15,7 @@ public class JavaCollectionSort implements Algorithm {
     }
 
     @Override
-    public int[] sort(int[] array, int lower, int upper) {
+    public int[] sort(int[] A, int lower, int upper) {
         return new int[0];
     }
 }

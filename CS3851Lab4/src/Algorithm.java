@@ -12,6 +12,6 @@ public interface Algorithm {
 
     long sort(int[] A);
 
-    int[] sort(int[] array, int lower, int upper);
+    int[] sort(int[] A, int lower, int upper);
 }
 

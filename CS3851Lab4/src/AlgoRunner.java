@@ -33,6 +33,7 @@ public class AlgoRunner {
         Algorithm IMQuickSort = new IMQuickSort();
 
         Algorithm javaCollectionSort = new JavaCollectionSort();
+        Algorithm IRQuickSort = new IRQuickSort();
 
 //        runTest("QuickSort", quickSort, "best case", bestCase);
 //        runTest("MergeSort", mergeSort, "best case", bestCase);
@@ -57,7 +58,7 @@ public class AlgoRunner {
 //        runTest("IMQuickSort", IMQuickSort, "worst case", worstCase);
 //        runTest("IMQuickSort", IMQuickSort, "likely case", likelyCase);
 
-        comprehensiveAnalysisToCSV(IQuickSort, IMQuickSort, mergeSort, mMergeSort, javaCollectionSort);
+        comprehensiveAnalysisToCSV(IQuickSort, IMQuickSort, mergeSort, mMergeSort, javaCollectionSort, IRQuickSort);
     }
 
     /**
@@ -119,14 +120,14 @@ public class AlgoRunner {
      */
     private static void comprehensiveAnalysisToCSV(Algorithm... algos) {
 
-        int numIterations = 2;
+        int numIterations = 5;
 
         ArrayList<int[]> bestLists = new ArrayList<>();
         ArrayList<int[]> worstLists = new ArrayList<>();
         ArrayList<int[]> likelyLists = new ArrayList<>();
 
         // populates lists with length 1000, 10000, 100000, 1000000, 10000000
-        for (int i = 1000; i <= 10000; i += 1000) {
+        for (int i = 1000000; i <= 10000000; i += 200000) {
             ArrayList<int[]> lists = generateLists(i);
             bestLists.add(lists.get(0));
             worstLists.add(lists.get(1));
@@ -136,7 +137,7 @@ public class AlgoRunner {
         try {
             Writer writer = new BufferedWriter(
                             new OutputStreamWriter(
-                            new FileOutputStream("CCS3851Lab4.csv")));
+                            new FileOutputStream("big2CCS3851Lab4.csv")));
 
             for (Algorithm algo : algos) {
                 writer.write(algo.getName() + "\n");

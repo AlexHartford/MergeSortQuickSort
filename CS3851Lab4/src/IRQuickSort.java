@@ -1,8 +1,9 @@
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Stack;
 
 /**
- * Iterative Single-Threaded QuickSort
+ * Iterative Randomized Pivot Single-Threaded QuickSort
  * Recursive QuickSort was giving me stackoverflow errors so here we are.
  * @author Alex Hartford
  * Course: CS3851-021
@@ -10,18 +11,18 @@ import java.util.Stack;
  * Spring 2017-2018
  * 19 April 2018
  */
-public class IQuickSort implements Algorithm {
+public class IRQuickSort implements Algorithm {
 
     @Override
     public long sort(int[] A) {
         long startTime = System.nanoTime();
         iterativeQuicksort(A);
-//        System.out.println("[Iterative QuickSort] Sorted Array: " + Arrays.toString(A));
+//        System.out.println("[Iterative Randomized QuickSort] Sorted Array: " + Arrays.toString(A));
         return System.nanoTime() - startTime;
     }
 
     public String getName() {
-        return "IQuickSort";
+        return "IRQuickSort";
     }
 
     public int[] sort(int[] A, int lower, int upper) {
@@ -36,7 +37,7 @@ public class IQuickSort implements Algorithm {
             int upper = stack.pop();
             int lower = stack.pop();
             if (upper - lower > 0) {
-                int pivot = partition(A, lower, upper);
+                int pivot = randomPivot(A, lower, upper);
 
                 stack.push(pivot + 1);
                 stack.push(upper);
@@ -69,5 +70,12 @@ public class IQuickSort implements Algorithm {
         int temp = A[i];
         A[i] = A[j];
         A[j] = temp;
+    }
+
+
+    Random random = new Random();
+    private int randomPivot(int[] A, int lower, int upper) {
+        swap(A, lower + random.nextInt(upper - lower), upper);
+        return partition(A, lower, upper);
     }
 }
